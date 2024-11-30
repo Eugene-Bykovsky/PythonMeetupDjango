@@ -15,20 +15,17 @@ from rest_framework.permissions import IsAuthenticated
 class EventProgramViewSet(viewsets.ModelViewSet):
     queryset = EventProgram.objects.all()
     serializer_class = EventProgramSerializer
-    permission_classes = [IsAuthenticated]  # Добавьте нужные права доступа
 
 
 # ViewSet для докладов
 class TalkViewSet(viewsets.ModelViewSet):
     queryset = Talk.objects.all()
     serializer_class = TalkSerializer
-    permission_classes = [IsAuthenticated]  # Добавьте нужные права доступа
 
 
 # ViewSet для вопросов
 class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
-    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -54,14 +51,12 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class UserRoleViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserRoleSerializer
-    permission_classes = [IsAuthenticated]
 
 
 # ViewSet для регистрации пользователей
 class UserRegistrationViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserRegistrationSerializer
-    permission_classes = [IsAuthenticated]
 
 
 # ViewSet для регистрации на мероприятия
