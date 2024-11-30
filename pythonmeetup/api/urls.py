@@ -10,7 +10,7 @@ router.register(r'talks', TalkViewSet)
 router.register(r'questions', QuestionViewSet)
 router.register(r'users', UserRoleViewSet)
 router.register(r'event-registrations', EventRegistrationViewSet)
-router.register(r'check-role', CheckRoleViewSet, basename='check-role')
+router.register(r'', CheckRoleViewSet, basename='check-role')
 
 # Добавляем маршруты
 urlpatterns = [

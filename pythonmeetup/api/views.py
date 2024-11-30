@@ -8,7 +8,6 @@ from .serializers import (EventProgramSerializer, TalkSerializer,
                           QuestionCreateSerializer, QuestionListSerializer,
                           UserRoleSerializer, UserRegistrationSerializer,
                           EventRegistrationSerializer)
-from rest_framework.permissions import IsAuthenticated
 
 
 # ViewSet для программы мероприятия
@@ -130,7 +129,6 @@ class CheckRoleViewSet(viewsets.ViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Получаем роли пользователя
         roles = user.roles
-
         return Response({"roles": roles}, status=status.HTTP_200_OK)
+
