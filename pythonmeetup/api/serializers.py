@@ -23,8 +23,7 @@ class TalkSerializer(serializers.ModelSerializer):
 class QuestionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['text', 'talk',
-                  'user']
+        fields = ['text', 'talk']
 
 
 class QuestionListSerializer(serializers.ModelSerializer):

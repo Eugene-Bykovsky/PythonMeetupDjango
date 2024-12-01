@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
 
 from events.models import (EventProgram, Talk, Question, CustomUser,
                            EventRegistration, ListenerProfile)
@@ -32,17 +33,29 @@ class QuestionViewSet(viewsets.ModelViewSet):
         return QuestionListSerializer
 
     def perform_create(self, serializer):
+        # Извлекаем данные из запроса
         talk_id = self.request.data.get('talk')
-        user = self.request.user
+        telegram_id = self.request.data.get('telegram_id')
 
-        # Получаем доклад, к которому привязываем вопрос
+        # Проверяем наличие обязательных данных
+        if not talk_id:
+            raise ValidationError({"detail": "Talk ID is required."})
+        if not telegram_id:
+            raise ValidationError({"detail": "Telegram ID is required."})
+
+        # Ищем доклад
         try:
             talk = Talk.objects.get(id=talk_id)
         except Talk.DoesNotExist:
-            raise Response({"detail": "Talk not found"},
-                           status=status.HTTP_404_NOT_FOUND)
+            raise ValidationError({"detail": "Talk not found."})
 
-        # Создаем вопрос с привязкой к докладу и пользователю
+        # Ищем пользователя по telegram_id
+        try:
+            user = CustomUser.objects.get(telegram_id=telegram_id)
+        except CustomUser.DoesNotExist:
+            raise ValidationError({"detail": "User with this Telegram ID does not exist."})
+
+        # Сохраняем вопрос с найденным пользователем и докладом
         serializer.save(user=user, talk=talk)
 
 
