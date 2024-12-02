@@ -1,8 +1,12 @@
 import os
+from environs import Env
+
+env = Env()
+env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = '78&dgqf7s(rfm9++ufp#*7ed7+6*b-gc^0ol$8de3&iial2gyq'
+SECRET_KEY = env.str('SECRET_KEY')
 
 DEBUG = True
 

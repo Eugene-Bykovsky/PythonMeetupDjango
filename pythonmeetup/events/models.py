@@ -103,8 +103,10 @@ class ListenerProfile(models.Model):
 
 class Question(models.Model):
     text = models.TextField()  # Текст вопроса
-    talk = models.ForeignKey(Talk, related_name="questions", on_delete=models.CASCADE)  # Привязка к докладу
-    user = models.ForeignKey(CustomUser, related_name="questions", on_delete=models.CASCADE)  # Привязка к пользователю (если необходимо)
+    talk = models.ForeignKey(Talk, related_name="questions",
+                             on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, related_name="questions",
+                             on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -122,4 +124,5 @@ class EventRegistration(models.Model):
         unique_together = ('listener', 'event_program')
 
     def __str__(self):
-        return f"{self.listener.user.username} registered for {self.event_program.title}"
+        return (f"{self.listener.user.username} registered "
+                f"for {self.event_program.title} ")

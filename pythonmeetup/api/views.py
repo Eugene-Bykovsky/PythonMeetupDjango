@@ -53,7 +53,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
         try:
             user = CustomUser.objects.get(telegram_id=telegram_id)
         except CustomUser.DoesNotExist:
-            raise ValidationError({"detail": "User with this Telegram ID does not exist."})
+            raise ValidationError({"detail": "User with this Telegram ID "
+                                             "does not exist."})
 
         # Сохраняем вопрос с найденным пользователем и докладом
         serializer.save(user=user, talk=talk)

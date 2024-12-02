@@ -13,17 +13,17 @@ class EventProgramSerializer(serializers.ModelSerializer):
 # Сериализатор для доклада
 class TalkSerializer(serializers.ModelSerializer):
     speaker = serializers.CharField(source='speaker.user.username')
-    telegram_id = serializers.IntegerField(source='speaker.user.telegram_id',
-                                           allow_null=True)
+    speaker_telegram_id = serializers.IntegerField(
+        source='speaker.user.telegram_id',
+        required=False)
 
     class Meta:
         model = Talk
         fields = ['id', 'title', 'start_time', 'end_time', 'speaker',
-                  'telegram_id']
-
-    # Сериализатор для создания вопросов
+                  'speaker_telegram_id']
 
 
+# Сериализатор для создания вопросов
 class QuestionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
